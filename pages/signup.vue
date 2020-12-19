@@ -30,6 +30,7 @@ export default {
     RegisterForm,
   },
   middleware: ['auth'],
+  layout: 'noHeader',
 }
 </script>
 

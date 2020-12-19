@@ -48,6 +48,7 @@ export default {
     LoginForm,
   },
   middleware: ['auth'],
+  layout: 'noHeader',
 }
 </script>
 

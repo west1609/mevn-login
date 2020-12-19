@@ -52,12 +52,6 @@ export default {
     // Doc: https://nuxtjs.org/api/configuration-modules/
     '@nuxtjs/axios',
   ],
-  axios: {
-    baseURL: process.env.baseUrl, // Used as fallback if no runtime config is provided
-  },
-  env: {
-    baseUrl: process.env.API_URL || 'http://localhost:3000/api',
-  },
   serverMiddleware: ['~/api/server'],
   /*
    ** Build configuration

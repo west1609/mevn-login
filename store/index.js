@@ -15,6 +15,9 @@ export const getters = {
   defaultAvatar: (state) => {
     return state.defaultAvatar
   },
+  accountInfo: (state) => {
+    return state.accountInfo
+  },
 }
 
 export const mutations = {

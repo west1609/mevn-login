@@ -1,6 +1,5 @@
 <template>
   <div>
-    <PageHeader />
     <Nuxt />
     <SnackBar
       v-show="this.$store.state.snackbar"
@@ -12,11 +11,9 @@
 
 <script>
 import SnackBar from '@/components/SnackBar'
-import PageHeader from '@/components/PageHeader'
 export default {
   components: {
     SnackBar,
-    PageHeader,
   },
 }
 </script>
