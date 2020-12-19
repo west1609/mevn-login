@@ -14,7 +14,10 @@ export default function ({ store, redirect, $axios, route }) {
         // setRefreshToken(refreshToken) // save refreshToken to cookie
         store.commit('SET_ACCOUNT_INFO', userData)
 
-        return data
+        // if user is on page login and got new tokens
+        if (route.name === 'login') {
+          return redirect({ name: 'index' })
+        }
       })
       .catch((error) => {
         // if refresh token is invalid or expired

@@ -1,6 +1,5 @@
 export const state = () => ({
   accessToken: '',
-  refreshToken: '',
   accountInfo: '',
   snackbar: false,
   snackbarColor: 'red-400',

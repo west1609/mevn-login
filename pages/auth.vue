@@ -2,16 +2,18 @@
   <div class="container">
     <Logo />
     <h2 class="subtitle text-center">auth page</h2>
+    <button class="bg-white" @click="getUsers()">call users</button>
   </div>
 </template>
 
 <script>
 export default {
   middleware: ['auth'],
-  // created () {
-  //   this.$axios.get('/users').then(res => console.log(res))
-  // },
-  methods: {},
+  methods: {
+    getUsers() {
+      this.$request.get('/users').then((res) => console.log(res))
+    },
+  },
 }
 </script>
 

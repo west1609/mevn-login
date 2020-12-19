@@ -4,7 +4,7 @@
       <ValidationProvider
         v-slot="{ errors, classes }"
         name="username"
-        rules="required"
+        rules="required|username"
       >
         <div :class="['field', classes]">
           <input
@@ -33,28 +33,10 @@
           <span class="text-red-600 text-xs">{{ errors[0] }}</span>
         </div>
       </ValidationProvider>
-      <ValidationProvider v-slot="{ errors }" name="gender" rules="required">
-        <div class="field">
-          <select
-            v-model.trim="formData.gender"
-            class="field__input"
-            placeholder="Gender"
-          >
-            <option
-              v-for="(option, index) in options"
-              :key="index"
-              :value="option.value"
-            >
-              {{ option.text }}
-            </option>
-          </select>
-          <span class="text-red-600 text-xs">{{ errors[0] }}</span>
-        </div>
-      </ValidationProvider>
       <ValidationProvider
         v-slot="{ errors, classes }"
         name="password"
-        rules="required|min:6|max:32"
+        rules="required|password"
       >
         <div :class="['field', classes]">
           <input
@@ -74,7 +56,7 @@
       >
         <div :class="['field', classes]">
           <input
-            v-model.trim="formData.confirmPassword"
+            v-model.trim="confirmPassword"
             type="password"
             class="field__input"
             placeholder="Confirm password"
@@ -99,22 +81,18 @@ export default {
   },
   data() {
     return {
-      options: [
-        { text: 'Male', value: 0 },
-        { text: 'Female', value: 1 },
-        { text: 'Other', value: 2 },
-      ],
       formData: {
         email: null,
         username: null,
-        gender: 0,
         password: null,
-        confirmPassword: null,
       },
+      confirmPassword: null,
     }
   },
   methods: {
-    onSubmit() {},
+    onSubmit() {
+      console.log(this.formData)
+    },
   },
 }
 </script>
