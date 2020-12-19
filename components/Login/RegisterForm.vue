@@ -1,6 +1,10 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
-    <form autocomplete="false" @submit.prevent="handleSubmit(onSubmit)">
+    <form
+      autocomplete="false"
+      enctype="multipart/form-data"
+      @submit.prevent="handleSubmit(onSubmit)"
+    >
       <ValidationProvider
         v-slot="{ errors, classes }"
         name="username"
@@ -65,6 +69,26 @@
         </div>
       </ValidationProvider>
       <div class="field">
+        <label class="font-semibold">Avatar</label>
+        <h1 class="text-xs text-gray-700 mb-2">
+          Allowed Formats: JPEG, PNG. Max size: 3mb. Optimal dimensions: 130x130
+        </h1>
+        <div class="flex justify-around items-center">
+          <div class="dropbox" @click="chooseImage()">
+            <input
+              ref="fileInput"
+              type="file"
+              accept="image/*"
+              name="avatar"
+              hidden
+              @change="onAvatarChange($event)"
+            />
+            <p>Drop image here or click to upload</p>
+          </div>
+          <img :src="formData.avatar" alt="avatar" class="preview-avatar" />
+        </div>
+      </div>
+      <div class="field">
         <button class="submit-btn" type="submit">sign up</button>
       </div>
     </form>
@@ -79,6 +103,8 @@ import {
   configure,
 } from 'vee-validate'
 import { confirmed, email, required } from 'vee-validate/dist/rules'
+import defaultAvatar from '@/assets/images/default-avatar.webp'
+
 configure({
   classes: {
     invalid: 'is-invalid',
@@ -131,20 +157,46 @@ export default {
         email: null,
         username: null,
         password: null,
-        avatar: this.$store.getters.defaultAvatar,
+        avatar: defaultAvatar,
       },
+      file: null,
       confirmPassword: null,
+      selectedFile: null,
     }
   },
   methods: {
-    onSubmit() {
-      console.log(this.formData)
+    chooseImage() {
+      this.$refs.fileInput.click()
+    },
+    onAvatarChange(event) {
+      this.selectedFile = event.target.files[0]
+
+      const reader = new FileReader()
+      reader.readAsDataURL(this.selectedFile)
+
+      reader.onload = (e) => {
+        this.formData.avatar = reader.result
+      }
+    },
+    async onSubmit() {
       const formData = new FormData()
-      const { email, username, password, avatar } = this.formData
+      const { email, username, password } = this.formData
       formData.append('email', email)
       formData.append('username', username)
       formData.append('password', password)
-      formData.append('avatar', avatar)
+      formData.append('avatar', this.selectedFile)
+
+      try {
+        const register = await this.$createUser(formData)
+        if (register) {
+          this.$router.push('/login')
+        }
+      } catch (error) {
+        this.$store.dispatch('showSnackbar', {
+          status: false,
+          message: error,
+        })
+      }
     },
   },
 }
@@ -169,7 +221,7 @@ export default {
 
 .submit-btn {
   @apply bg-gray-900 rounded shadow;
-  @apply px-6 py-3 mr-1 mb-1 mt-3;
+  @apply px-6 py-3 mr-1 my-1;
   @apply w-full outline-none;
   @apply text-white text-sm font-bold uppercase;
   @apply transition hover:bg-gray-700 hover:shadow-lg focus:outline-none;
@@ -179,5 +231,31 @@ export default {
   input {
     @apply ring-2 ring-red-600 focus:ring-red-600;
   }
+}
+
+.dropbox {
+  align-items: center;
+  background: rgba(229, 235, 241, 0.6);
+  border-radius: 4px;
+  @apply text-sm text-center;
+  color: rgb(64, 78, 92);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1.5rem;
+  margin-right: 20px;
+  outline-offset: -12px;
+  outline: 2px dashed rgba(38, 52, 63, 0.2);
+  padding: 18px 20px;
+  position: relative;
+  transition: 0.2s;
+  vertical-align: text-top;
+  width: 150px;
+  height: 150px;
+}
+
+.preview-avatar {
+  width: 130px;
+  height: 130px;
 }
 </style>

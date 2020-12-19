@@ -84,7 +84,9 @@ function errorHandler(err, res) {
       err = new ServerError()
   }
   const statusCode = err.data.status
-  res.status(statusCode).json(err.data)
+  err.data
+    ? res.status(statusCode).json(err.data)
+    : res.status(statusCode).json(err)
 }
 
 module.exports = {

@@ -17,7 +17,9 @@ export default {
   middleware: ['auth'],
   methods: {
     getUsers() {
-      this.$getUsers().then(({ data }) => console.log(data))
+      this.$getUsers().then(({ data }) => {
+        return data
+      })
     },
   },
 }

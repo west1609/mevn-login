@@ -5,7 +5,7 @@ export const state = () => ({
   snackbarColor: 'red-400',
   notifyMessage: null,
   pageHeaderTitle: '',
-  defaultAvatar: '',
+  defaultAvatar: require('../assets/images/default-avatar.webp'),
 })
 
 export const getters = {

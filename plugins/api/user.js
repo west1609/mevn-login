@@ -6,5 +6,15 @@ export default function ({ $request }, inject) {
       params,
     })
   }
+
+  const createUser = (data) => {
+    return $request({
+      url: '/users',
+      method: 'post',
+      data,
+    })
+  }
+
   inject('getUsers', getUsers)
+  inject('createUser', createUser)
 }

@@ -1,7 +1,12 @@
 const multer = require('multer')
 const { errorHandler } = require('../utils/errors')
 
-const upload = multer({ dest: './static/images/avatars' })
+const upload = multer({
+  dest: './static/images/avatars',
+  limits: {
+    fileSize: 3 * 1024 * 1024,
+  },
+})
 
 const uploadAvatar = (req, res, next) => {
   try {
