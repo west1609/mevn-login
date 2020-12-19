@@ -5,12 +5,15 @@ export const state = () => ({
   snackbarColor: 'red-400',
   notifyMessage: null,
   pageHeaderTitle: '',
-  avatarDefault: '',
+  defaultAvatar: '',
 })
 
 export const getters = {
   accessToken: (state) => {
     return state.accessToken
+  },
+  defaultAvatar: (state) => {
+    return state.defaultAvatar
   },
 }
 
@@ -44,7 +47,7 @@ export const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       this.$axios
-        .post('/login', { username: username.trim(), password })
+        .post('/auth/login', { username: username.trim(), password })
         .then(({ data }) => {
           if (!data) {
             reject(
@@ -69,9 +72,16 @@ export const actions = {
   // user logout
   logout({ commit }) {
     return new Promise((resolve, reject) => {
-      commit('SET_ACCESS_TOKEN', '')
-      commit('SET_ACCOUNT_INFO', '')
-      resolve(true)
+      this.$axios
+        .post('/auth/logout')
+        .then(() => {
+          commit('SET_ACCESS_TOKEN', '')
+          commit('SET_ACCOUNT_INFO', '')
+          resolve(true)
+        })
+        .catch((error) => {
+          reject(error)
+        })
     })
   },
 

@@ -1,11 +1,11 @@
-export default function ({ $axios, redirect, store, route }, inject) {
+export default function ({ $axios, store }, inject) {
   const request = $axios.create({
     baseURL: process.env.API_URL, // url = base url + request url
     // withCredentials: true, // send cookies when cross-domain requests
     timeout: 5000, // request timeout
   })
 
-  // Inject to context as $api
+  // Inject to context as $request
   inject('request', request)
 
   request.onRequest((config) => {

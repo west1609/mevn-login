@@ -36,7 +36,7 @@ const login = async (req, res) => {
         data: resUserData,
       },
       secretKey,
-      { expiresIn: '1h' },
+      { expiresIn: 60 * 1 },
       { algorithm: 'HS256' }
     )
 

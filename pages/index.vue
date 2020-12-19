@@ -1,21 +1,38 @@
 <template>
   <div class="container">
-    <Logo />
-    <h2 class="subtitle text-center">MEVN Login by West1609</h2>
+    <div>
+      <Logo />
+      <h2 class="subtitle text-center">MEVN Login by West1609</h2>
+      <div class="links">
+        <nuxt-link to="/login" class="button--green"> Sign In </nuxt-link>
+        <button class="button--grey" @click="doLogout()">Sign Out</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   middleware: ['auth'],
-  // created () {
-  //   this.$axios.get('/users').then(res => console.log(res))
-  // },
-  methods: {},
+  methods: {
+    async doLogout() {
+      try {
+        const logout = await this.$store.dispatch('logout')
+        if (logout) {
+          this.$router.push('/login')
+        }
+      } catch (error) {
+        this.$store.dispatch('showSnackbar', {
+          status: false,
+          message: error,
+        })
+      }
+    },
+  },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;

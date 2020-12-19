@@ -23,57 +23,13 @@
 </template>
 
 <script>
-import { extend, configure } from 'vee-validate'
-import {
-  required,
-  email,
-  alpha,
-  max,
-  min,
-  confirmed,
-} from 'vee-validate/dist/rules'
 import RegisterForm from '@/components/Login/RegisterForm'
-
-configure({
-  classes: {
-    invalid: 'is-invalid',
-  },
-})
-
-extend('email', {
-  ...email,
-  message: 'Email is invalid',
-})
-
-extend('alpha', {
-  ...alpha,
-  message: 'This field may only contain alphabetic characters',
-})
-
-extend('max', {
-  ...max,
-  message: 'Password may not be greater than 32 characters',
-})
-
-extend('min', {
-  ...min,
-  message: 'Password must be atleast 6 characters',
-})
-
-extend('required', {
-  ...required,
-  message: 'This field is required',
-})
-
-extend('confirmed', {
-  ...confirmed,
-  message: 'Confirmed password does not match with password',
-})
 
 export default {
   components: {
     RegisterForm,
   },
+  middleware: ['auth'],
 }
 </script>
 

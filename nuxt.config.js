@@ -4,6 +4,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-target
    */
   target: 'server',
+  loading: false,
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -29,7 +30,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/axios'],
+  plugins: ['@/plugins/axios', '@/plugins/api/user'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

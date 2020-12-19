@@ -1,8 +1,14 @@
 <template>
   <div class="container">
-    <Logo />
-    <h2 class="subtitle text-center">auth page</h2>
-    <button class="bg-white" @click="getUsers()">call users</button>
+    <div>
+      <Logo />
+      <h2 class="subtitle text-center">Auth page</h2>
+      <div class="links">
+        <button class="button--green" @click="getUsers()">
+          Get List of Users
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,13 +17,13 @@ export default {
   middleware: ['auth'],
   methods: {
     getUsers() {
-      this.$request.get('/users').then((res) => console.log(res))
+      this.$getUsers().then(({ data }) => console.log(data))
     },
   },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;

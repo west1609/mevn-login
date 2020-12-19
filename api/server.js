@@ -15,8 +15,9 @@ app.use(cookieParser())
 
 // Defining route middleware
 app.use('/users', require('./routes/users'))
-app.use('/login', require('./routes/login'))
-app.use('/refresh_token', require('./routes/refresh_token'))
+app.use('/auth/login', require('./routes/login'))
+app.use('/auth/logout', require('./routes/logout'))
+app.use('/auth/refresh_token', require('./routes/refresh_token'))
 
 // Listening to port
 // app.listen(port)

@@ -21,7 +21,7 @@ const refreshToken = async (req, res) => {
         data: reqUserData,
       },
       secretKey,
-      { expiresIn: '1h' },
+      { expiresIn: 60 * 1 },
       { algorithm: 'HS256' }
     )
 
