@@ -12,7 +12,7 @@ module.exports = {
       'nuxt.config.js',
       // TypeScript
       'plugins/**/*.ts',
-      'nuxt.config.ts'
-    ]
-  }
+      'nuxt.config.ts',
+    ],
+  },
 }
