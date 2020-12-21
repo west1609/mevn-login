@@ -46,7 +46,7 @@ export const mutations = {
 
 export const actions = {
   // user login
-  login({ commit }, userInfo) {
+  login({ commit, dispatch }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       this.$axios
@@ -67,7 +67,11 @@ export const actions = {
           resolve(user)
         })
         .catch((error) => {
-          return new Error(error)
+          const message = error.response.data.message
+          dispatch('showSnackbar', {
+            status: false,
+            message,
+          })
         })
     })
   },

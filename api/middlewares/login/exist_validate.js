@@ -1,4 +1,4 @@
-const { NotFoundError, errorHandler } = require('../../utils/errors')
+const { ValidationError, errorHandler } = require('../../utils/errors')
 const User = require('../../models/user_schema')
 
 const existValidate = async (req, res, next) => {
@@ -8,7 +8,7 @@ const existValidate = async (req, res, next) => {
     // check if user exists
     const isExistedUser = await User.exists({ username: user.username })
 
-    if (!isExistedUser) throw new NotFoundError('User not found')
+    if (!isExistedUser) throw new ValidationError('Username does not exist')
 
     next()
   } catch (err) {

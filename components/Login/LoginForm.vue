@@ -71,18 +71,18 @@ export default {
     }
   },
   methods: {
-    async onSubmit() {
-      try {
-        const login = await this.$store.dispatch('login', this.formData)
-        if (login) {
+    onSubmit() {
+      this.$store
+        .dispatch('login', this.formData)
+        .then((res) => {
           this.$router.push('/')
-        }
-      } catch (error) {
-        this.$store.dispatch('showSnackbar', {
-          status: false,
-          message: error,
         })
-      }
+        .catch((error) => {
+          this.$store.dispatch('showSnackbar', {
+            status: false,
+            message: error,
+          })
+        })
     },
   },
 }

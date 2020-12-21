@@ -55,7 +55,7 @@ class NotFoundError extends Error {
     super(message)
     this.name = 'NotFoundError'
     this.data = {
-      status: 500,
+      status: 404,
       type: 'NotFoundError',
       message,
       timestamp: JSON.stringify(Date.now()),
