@@ -18,7 +18,6 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      required: [true, 'avatar field is required'],
     },
     salt: {
       type: String,

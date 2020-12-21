@@ -71,7 +71,7 @@
       <div class="field">
         <label class="font-semibold">Avatar</label>
         <h1 class="text-xs text-gray-700 mb-2">
-          Allowed Formats: JPEG, PNG. Max size: 3mb. Optimal dimensions: 130x130
+          Allowed Formats: JPEG, PNG. Max size: 3MB. Optimal dimensions: 130x130
         </h1>
         <div class="flex justify-around items-center">
           <div class="dropbox" @click="chooseImage()">
@@ -169,7 +169,26 @@ export default {
       this.$refs.fileInput.click()
     },
     onAvatarChange(event) {
-      this.selectedFile = event.target.files[0]
+      const uploadedFile = event.target.files[0]
+
+      if (uploadedFile && uploadedFile.size > 3 * 1024 * 1024) {
+        this.$store.dispatch('showSnackbar', {
+          status: false,
+          message: 'Avatar: Max file size allowed is 3MB!',
+        })
+        return
+      } else if (
+        uploadedFile &&
+        uploadedFile.type !== 'image/jpeg' &&
+        uploadedFile.type !== 'image/png'
+      ) {
+        this.$store.dispatch('showSnackbar', {
+          status: false,
+          message: 'Avatar: Only JPEG, PNG file formats are allowed!',
+        })
+        return
+      }
+      this.selectedFile = uploadedFile
 
       const reader = new FileReader()
       reader.readAsDataURL(this.selectedFile)

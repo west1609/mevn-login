@@ -1,6 +1,6 @@
 const { ValidationError, errorHandler } = require('../../utils/errors')
 
-const userValidate = async (req, res, next) => {
+const userValidate = (req, res, next) => {
   try {
     const user = req.body
 

@@ -67,7 +67,7 @@ export const actions = {
           resolve(user)
         })
         .catch((error) => {
-          reject(error)
+          return new Error(error)
         })
     })
   },

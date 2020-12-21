@@ -1,7 +1,7 @@
 const { isEmpty, isNull, isUndefined } = require('lodash')
 const { ValidationError, errorHandler } = require('../../utils/errors')
 
-const emptyValidate = async (req, res, next) => {
+const emptyValidate = (req, res, next) => {
   try {
     const user = req.body
 

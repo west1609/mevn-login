@@ -24,8 +24,8 @@ export default function ({ $axios, store }, inject) {
     const status = parseInt(error.response.data.status)
     const message = error.response.data.message
 
-    if (status === 400 || status === 403) {
-      return Promise.reject(new Error(message))
+    if (status === 400 || status === 403 || status === 500) {
+      return Promise.reject(message)
     }
     // do something with request error
     else if (status === 401) {
@@ -36,6 +36,9 @@ export default function ({ $axios, store }, inject) {
        * If user does not have refresh token -> redirect to login (cause of middleware)
        */
       location.reload()
+    } else {
+      const msg = 'Internal Server Error'
+      return Promise.reject(msg)
     }
   })
 }
