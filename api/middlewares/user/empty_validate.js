@@ -15,11 +15,9 @@ const emptyValidate = async (req, res, next) => {
     else if (
       (!req.params.id && !user.avatar) ||
       (!req.params.id &&
-        (!user.username || !user.email || !user.password || !req.file))
+        (!user.username || !user.email || !user.password || !user.avatar))
     ) {
-      throw new ValidationError(
-        'Username, password, email, avatar are required'
-      )
+      throw new ValidationError('All the fields are required')
     }
 
     let hasEmptyVal = false
